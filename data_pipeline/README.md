@@ -47,7 +47,54 @@ The INR price is calculated as:
 
 I did round off to 2 decimal points.
 
+## Database Design
 
+I created a SQLite database with two tables, `categories` and `books`.
 
-Open `data_pipeline.ipynb` in Google Colab or Jupyter Notebook and run
-all cells from top to bottom.
+The `categories` table contains:
+
+- `category_id` as the primary key
+- `category_name`
+
+The `books` table contains:
+
+- `book_id` as the primary key
+- `title`
+- `price_gbp`
+- `price_inr`
+- `rating`
+- `in_stock`
+- `category_id`
+
+Here `category_id` in the books table is a foreign key which refers to the `category_id` in the categories table.
+
+I kept categories in a separate table so that the same category name does not need to be stored again and again for every book.
+
+## SQL Queries
+
+I have written SQL queries on the database using:
+
+- `SELECT` and `WHERE`
+- `ORDER BY`
+- `LIMIT`
+- `DISTINCT`
+- `BETWEEN`
+- `JOIN`
+
+The queries and their outputs can be seen in the `data_pipeline.ipynb` notebook.
+
+## Pandas Comparison
+
+I also read the SQL query results into pandas DataFrames using `pd.read_sql()`.
+
+I performed the same join using `pd.merge()` in pandas without using SQL.
+
+Finally, I compared the SQL JOIN result with the pandas merge result and checked that both are giving the same output.
+
+## How to Run
+
+Install the required libraries using the `requirements.txt` file.
+
+`pip install -r requirements.txt`
+
+Open `data_pipeline.ipynb` in Google Colab or Jupyter Notebook and run all the cells from top to bottom.
