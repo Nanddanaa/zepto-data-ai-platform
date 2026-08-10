@@ -45,6 +45,8 @@ The INR price is calculated as:
 
 `price_inr = price_gbp * 105.50`
 
+I did round off to 2 decimal points.
+
 
 
 Open `data_pipeline.ipynb` in Google Colab or Jupyter Notebook and run
