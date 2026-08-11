@@ -36,16 +36,19 @@ The final output is validated using Pydantic with `answer`, `sources` and `confi
 
 ## Run Locally
 
-Install the requirements from the project root:
+Move to the support assistant folder:
+
+```bash
+cd support_assistant
+```
+Install the required packages:
 
 ```bash
 pip install -r requirements.txt
 ```
-
-Move to the module folder and start the API:
+Start the API:
 
 ```bash
-cd support_assistant
 uvicorn main:app --reload
 ```
 
