@@ -28,7 +28,7 @@ classify_intent
     |--- general_question --> direct_answer
 ```
 
-`MOCK_LLM=1` is used by default and does not make any LLM API call. `MOCK_LLM=0` is the optional real LLM path.
+`MOCK_LLM=1` is used by default and does not make any LLM API call. The optional real LLM extension is not used in this submission.
 
 The structured prompt follows **role → context → task → format → length** and includes a negative constraint and a few-shot example.
 
