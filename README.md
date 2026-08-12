@@ -1,38 +1,55 @@
-## Installation and Setup
+# Zepto Data & AI Platform
 
-### 1. Clone the Repository
+This repository contains three modules:
 
-Open Command Prompt and move to the folder where you want to download the project. For example:
+1. **Data Pipeline** – web scraping, data cleaning and SQLite storage
+2. **Analytics** – Titanic exploratory data analysis and machine learning
+3. **Support Assistant** – RAG-based Zepto policy assistant using FastAPI
 
-```bat
-cd C:\Users\<username>\Downloads
+Each module is kept in its own folder and can be executed separately.
+
+## Project Structure
+
+```text
+zepto-data-ai-platform/
+│
+├── data_pipeline/
+│   ├── data_pipeline.ipynb
+│   └── zepto_books.db
+│
+├── analytics/
+│   ├── analytics_01_eda.ipynb
+│   ├── analytics_02_modeling.ipynb
+│   ├── titanic.csv
+│   ├── best_pipeline.joblib
+│   └── README.md
+│
+├── support_assistant/
+│   ├── docs/
+│   ├── main.py
+│   ├── Dockerfile
+│   └── README.md
+│
+├── requirements.txt
+└── README.md
 ```
 
-Clone the repository:
+# Setup
 
-```bat
+## 1. Clone the Repository
+
+Open Command Prompt or a terminal in the folder where you want to download the project.
+
+```bash
 git clone <repository-url>
-```
-
-Move into the project:
-
-```bat
 cd zepto-data-ai-platform
 ```
 
-### 2. Create a Python Virtual Environment
+## 2. Create a Virtual Environment
 
-All of this must be done in **Command Prompt (CMD)** inside your project folder.
+Create a Python virtual environment:
 
-First, open CMD and go to the project directory:
-
-```bat
-cd C:\Users\<username>\Downloads\zepto-data-ai-platform
-```
-
-Then create the virtual environment:
-
-```bat
+```bash
 python -m venv .venv
 ```
 
@@ -42,49 +59,57 @@ Activate it on Windows:
 .venv\Scripts\activate
 ```
 
-After activation, your terminal will show `(.venv)` at the beginning.
+On macOS/Linux:
 
-Example:
-
-```text
-(.venv) C:\Users\<username>\Downloads\zepto-data-ai-platform>
+```bash
+source .venv/bin/activate
 ```
 
-### 3. Install the Requirements
+After activation, the terminal should show `(.venv)`.
+
+## 3. Install Requirements
+
+Upgrade pip:
+
+```bash
+python -m pip install --upgrade pip
+```
 
 Install all project dependencies:
 
-```bat
-python -m pip install --upgrade pip
+```bash
 pip install -r requirements.txt
 ```
 
-Wait until the installation is complete before opening the notebooks.
+The root `requirements.txt` contains the dependencies required for all three modules, so the installation only needs to be done once.
 
-### 4. Open the Project in VS Code
+## 4. Open the Project in VS Code
 
-From the same command prompt, run:
+Open the repository in VS Code:
 
-```bat
+```bash
 code .
 ```
 
-If the `code` command is not available, open VS Code manually and select **File → Open Folder**, then open the `zepto-data-ai-platform` folder.
+If the `code` command is unavailable, open VS Code manually and select:
 
-### 5. Select the Notebook Kernel
+**File → Open Folder → zepto-data-ai-platform**
 
-When a `.ipynb` notebook is opened in VS Code:
+## 5. Select the Notebook Kernel
 
-1. Click **Select Kernel** at the top-right.
-2. Select **Python Environments**.
-3. Select the `.venv` environment created above.
-4. Click **Run All** to execute the notebook.
+For the `.ipynb` notebooks:
 
-The same `.venv` can be used for all modules.
+1. Open the notebook in VS Code.
+2. Click **Select Kernel** at the top-right.
+3. Select **Python Environments**.
+4. Select the `.venv` environment created during setup.
+5. Click **Run All**.
+
+The same `.venv` environment can be used for all modules.
 
 ---
 
-## Module 1 - Data Pipeline
+# Module 1 – Data Pipeline
 
 Open:
 
@@ -92,13 +117,19 @@ Open:
 data_pipeline/data_pipeline.ipynb
 ```
 
-Select `.venv` as the kernel and click **Run All**.
+Click **Run All**.
 
-The notebook performs the data pipeline and creates the SQLite database used in the module.
+The notebook performs web scraping, data cleaning and transformation, and stores the processed data in SQLite.
+
+The resulting database is:
+
+```text
+data_pipeline/zepto_books.db
+```
 
 ---
 
-## Module 2 - Analytics
+# Module 2 – Analytics
 
 Run the analytics notebooks in this order:
 
@@ -107,23 +138,27 @@ Run the analytics notebooks in this order:
 2. analytics/analytics_02_modeling.ipynb
 ```
 
-### EDA Notebook
+## Step 1 – Exploratory Data Analysis
 
-First open:
+Open:
 
 ```text
 analytics/analytics_01_eda.ipynb
 ```
 
-Select `.venv` and click **Run All**.
+Click **Run All**.
 
-The notebook loads the Titanic dataset and saves it as:
+The notebook loads the Titanic dataset using Seaborn and performs exploratory data analysis.
+
+It saves the dataset as:
 
 ```text
-titanic.csv
+analytics/titanic.csv
 ```
 
-### Modeling Notebook
+`titanic.csv` is also included in the repository so the dataset is available with the project.
+
+## Step 2 – Modeling
 
 After the EDA notebook has completed, open:
 
@@ -131,57 +166,93 @@ After the EDA notebook has completed, open:
 analytics/analytics_02_modeling.ipynb
 ```
 
-Select the same `.venv` kernel and click **Run All**.
+Click **Run All**.
 
-This notebook reads `titanic.csv` and performs preprocessing, model training and evaluation.
+The modeling notebook reads `titanic.csv` and performs preprocessing, model training, evaluation and model selection.
+
+The final trained pipeline is saved as:
+
+```text
+analytics/best_pipeline.joblib
+```
+
+Detailed analysis and interpretations are available in:
+
+```text
+analytics/README.md
+```
 
 ---
 
-## Module 3 - Support Assistant
+# Module 3 – Support Assistant
 
-Open a terminal from the repository root and make sure `.venv` is activated.
+The Support Assistant is a RAG-based FastAPI application that answers questions using the 8 provided Zepto policy documents.
 
-Move to the support assistant folder:
+VS Code is not required to run this module.
+
+Open a terminal from the repository root. If the virtual environment is not currently active, activate it on Windows using:
 
 ```bat
+.venv\Scripts\activate
+```
+
+Move to the module folder:
+
+```bash
 cd support_assistant
 ```
 
-Start the FastAPI application:
+Start the FastAPI server:
 
-```bat
+```bash
 uvicorn main:app --reload
 ```
 
-After the server starts, open:
+When the server starts, open:
 
 ```text
 http://127.0.0.1:8000/docs
 ```
 
-Use the `POST /ask` endpoint to test the application.
+Use the **POST `/ask`** endpoint and click **Try it out**.
+
+Example request:
+
+```json
+{
+  "query": "What is the delivery fee?"
+}
+```
+
+Click **Execute** to view the response.
+
+The application uses `MOCK_LLM=1` by default, so an external LLM API key is not required for the default execution.
 
 Press `Ctrl+C` in the terminal to stop the server.
 
-### Docker
+More details about the RAG architecture and example responses are available in:
 
-Docker can also be used from the repository root.
-
-If currently inside `support_assistant`, return to the root:
-
-```bat
-cd ..
+```text
+support_assistant/README.md
 ```
 
-Build the image:
+---
 
-```bat
+# Docker – Support Assistant
+
+The Support Assistant can optionally be run using Docker.
+
+Make sure Docker Desktop is installed and running.
+
+Run the following command from the **repository root**:
+
+```bash
 docker build -f support_assistant/Dockerfile -t zepto-support .
 ```
 
-Run the container:
+After the image is built successfully, run:
 
-```bat
+```bash
 docker run -p 7860:7860 zepto-support
 ```
 
@@ -190,3 +261,5 @@ Then open:
 ```text
 http://127.0.0.1:7860/docs
 ```
+
+Use the same **POST `/ask`** endpoint to test the containerized application.
