@@ -240,7 +240,7 @@ support_assistant/README.md
 
 # Docker – Support Assistant
 
-The Support Assistant can optionally be run using Docker.
+The Support Assistant can optionally be run using Docker. I have created requirements in support_assistant because docker using that requirements only because main requirements many things that not needed.
 
 Make sure Docker Desktop is installed and running.
 
